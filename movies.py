@@ -15,6 +15,10 @@ data = pd.merge(pd.merge(ratings, users), movies)
 
 mean_ratings = data.pivot_table('rating', index='title', columns='gender', aggfunc='mean')
 
+ratings_by_title = data.groupby('title').size()
+active_titles = ratings_by_title.index[ratings_by_title >= 250]
+
+mean_ratings = mean_ratings.ix[active_titles]
 mean_ratings['difference'] = abs(mean_ratings['F'] - mean_ratings['M'])
 mean_ratings.sort(['difference'], ascending=False, inplace=True)
 print mean_ratings[:5]
