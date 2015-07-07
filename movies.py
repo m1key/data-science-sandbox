@@ -11,9 +11,10 @@ ratings = pd.read_table(directory + 'ratings.dat', sep='::', header=None, names=
 mnames = ['movie_id', 'title', 'genres']
 movies = pd.read_table(directory + 'movies.dat', sep='::', header=None, names=mnames, engine='python')
 
-print users[:5]
-print ratings[:5]
-print movies[:5]
-
 data = pd.merge(pd.merge(ratings, users), movies)
 
+mean_ratings = data.pivot_table('rating', index='title', columns='gender', aggfunc='mean')
+
+mean_ratings['difference'] = abs(mean_ratings['F'] - mean_ratings['M'])
+mean_ratings.sort(['difference'], ascending=False, inplace=True)
+print mean_ratings[:5]
