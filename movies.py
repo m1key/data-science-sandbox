@@ -15,3 +15,5 @@ print users[:5]
 print ratings[:5]
 print movies[:5]
 
+data = pd.merge(pd.merge(ratings, users), movies)
+
