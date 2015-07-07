@@ -1,0 +1,36 @@
+import json
+from collections import Counter
+from pandas import DataFrame, Series
+import pandas as pd
+import numpy as np
+
+path = '/home/mike/Downloads/videos-20150528140000.json'
+open(path).readline()
+
+records = [json.loads(line) for line in open(path, 'rb')]
+
+tags_0 = [record['tags_0'] for record in records if 'tags_0' in record]
+
+counts = Counter(tags_0)
+# print counts.most_common(10)
+
+frame = DataFrame(records)
+clean_tags_0_counts = frame['tags_0'].fillna('Missing')
+clean_tags_0_counts[clean_tags_0_counts == ''] = 'Unknown'
+tags_0_counts = clean_tags_0_counts.value_counts()
+tags_0_counts[:10].plot(kind = 'barh', rot = 0).get_figure().savefig('output.png', bbox_inches = 'tight')
+
+# results = Series([x.split()[0] for x in frame.tags_0.dropna()])
+# print results[:5]
+
+cframe = frame[frame.tags_0.notnull()]
+type_flash = np.where(cframe.tags_0.str.contains('Flash'), 'Flash', 'Not Flash')
+agg_counts = cframe.groupby(['tags_1', type_flash]).size().unstack().fillna(0)
+# indexer = agg_counts['Flash'].argsort()
+# indexer = agg_counts.sort('Flash', ascending = False)[['tags_1', 'Flash']]
+#indexer = agg_counts.sort(['Flash', 'Not Flash'], ascending = False
+agg_counts['Value'] = agg_counts['Flash'] * 1000 + agg_counts['Not Flash']
+print agg_counts.sort(['Value'])
+# #print agg_counts.take(np.argsort(indexer))
+print agg_counts.take(agg_counts.ix[:, 2].argsort())
+
