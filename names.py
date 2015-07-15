@@ -26,7 +26,7 @@ def add_prop(group):
 
 names = names.groupby(['year', 'sex']).apply(add_prop)
 
-print np.allclose(names.groupby(['year', 'sex']).prop.sum(), 1)
+# print np.allclose(names.groupby(['year', 'sex']).prop.sum(), 1)
 
 def get_top1000(group):
 	return group.sort_index(by = 'births', ascending = False)[:1000]
@@ -34,5 +34,12 @@ grouped = names.groupby(['year', 'sex'])
 top1000 = grouped.apply(get_top1000)
 top1000.index = np.arange(len(top1000))
 
-print top1000
+# print top1000
 
+boys = top1000[top1000.sex == 'M']
+girls = top1000[top1000.sex == 'F']
+
+print girls
+total_births = top1000.pivot_table('births', index = 'year', columns = 'name', aggfunc = sum)
+subset = total_births[['Michael', 'Mike', 'Martin']]
+subset.plot( title = 'Number of births per year', grid = True, figsize=(28,20), xticks=range(1880, 2020, 5)).get_figure().savefig('output2.png', bbox_inches = 'tight')
