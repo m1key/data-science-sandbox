@@ -56,3 +56,10 @@ diversity = top1000.groupby(['year', 'sex']).apply(get_quantile_count)
 diversity = diversity.unstack('sex')
 diversity.plot(title = 'Number of popular names in top 50%').get_figure().savefig('output3.png', bbox_inches = 'tight')
 
+get_last_letter = lambda x: x[-1]
+last_letters = names.name.map(get_last_letter)
+last_letters.name = 'last_letter'
+
+table = names.pivot_table('births', index=last_letters, columns = ['sex', 'year'], aggfunc = sum)
+subtable = table.reindex(columns = [1910, 1960, 2010], level = 'year')
+print subtable.head()
