@@ -41,5 +41,10 @@ girls = top1000[top1000.sex == 'F']
 
 print girls
 total_births = top1000.pivot_table('births', index = 'year', columns = 'name', aggfunc = sum)
-subset = total_births[['Michael', 'Mike', 'Martin']]
-subset.plot( title = 'Number of births per year', grid = True, figsize=(28,20), xticks=range(1880, 2020, 5)).get_figure().savefig('output2.png', bbox_inches = 'tight')
+#subset = total_births[['Michael', 'Mike', 'Martin', 'Ammar']].fillna(0)
+#subset.plot( title = 'Number of births per year', grid = True, figsize=(28,20), xticks=range(1880, 2020, 5)).get_figure().savefig('output2.png', bbox_inches = 'tight')
+
+df = boys[boys.year == 2010]
+prop_cumsum = df.sort_index(by = 'prop', ascending = False).prop.cumsum()
+print prop_cumsum.values.searchsorted(0.5)
+
