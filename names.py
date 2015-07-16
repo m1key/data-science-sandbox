@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 
 years = range(1880, 2015)
 
@@ -62,3 +63,12 @@ last_letters.name = 'last_letter'
 table = names.pivot_table('births', index=last_letters, columns = ['sex', 'year'], aggfunc = sum)
 subtable = table.reindex(columns = [1910, 1960, 2010], level = 'year')
 print subtable.head()
+
+letter_prop = subtable / subtable.sum().astype(float)
+fig, axes = plt.subplots(2, 1, figsize = (10, 8))
+letter_prop['M'].plot(kind = 'bar', rot = 0, ax = axes[0], title = 'Male').get_figure().savefig('output4.png', bbox_inches = 'tight')
+letter_prop['F'].plot(kind = 'bar', rot = 0, ax = axes[1], title = 'Female', legend = False).get_figure().savefig('output5.png', bbox_inches = 'tight')
+
+letter_prop = table / table.sum().astype(float)
+dny_ts = letter_prop.ix[['d', 'n', 'y'], 'M'].T
+dny_ts.plot().get_figure().savefig('output6.png', bbox_inches = 'tight')
