@@ -48,3 +48,11 @@ df = boys[boys.year == 2010]
 prop_cumsum = df.sort_index(by = 'prop', ascending = False).prop.cumsum()
 print prop_cumsum.values.searchsorted(0.5)
 
+def get_quantile_count(group, q = 0.5):
+	group = group.sort_index(by = 'prop', ascending = False)
+	return group.prop.cumsum().values.searchsorted(q) + 1
+
+diversity = top1000.groupby(['year', 'sex']).apply(get_quantile_count)
+diversity = diversity.unstack('sex')
+diversity.plot(title = 'Number of popular names in top 50%').get_figure().savefig('output3.png', bbox_inches = 'tight')
+
