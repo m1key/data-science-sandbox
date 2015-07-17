@@ -72,3 +72,15 @@ letter_prop['F'].plot(kind = 'bar', rot = 0, ax = axes[1], title = 'Female', leg
 letter_prop = table / table.sum().astype(float)
 dny_ts = letter_prop.ix[['d', 'n', 'y'], 'M'].T
 dny_ts.plot().get_figure().savefig('output6.png', bbox_inches = 'tight')
+
+all_names = names.name.unique()
+mask = np.array(['lesl' in x.lower() for x in all_names])
+lesley_like = all_names[mask]
+print lesley_like
+filtered = names[names.name.isin(lesley_like)]
+filtered.groupby('name').births.sum()
+table = filtered.pivot_table('births', index = 'year', columns = 'sex', aggfunc = 'sum')
+table = table.div(table.sum(1), axis = 0)
+table.plot(style = {'M': 'k-', 'F': 'k--'}).get_figure().savefig('output7.png', bbox_inches = 'tight')
+
+
