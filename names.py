@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-years = range(1880, 2015)
+years = range(1950, 2015)
 
 pieces = []
 columns = ['name', 'sex', 'births']
@@ -41,8 +41,8 @@ boys = top1000[top1000.sex == 'M']
 girls = top1000[top1000.sex == 'F']
 
 total_births = names.pivot_table('births', index = 'year', columns = 'name', aggfunc = sum)
-subset = total_births[['Michael', 'Mike', 'Michal', 'Denis', 'Dennis', 'Martin', 'Ammar', 'Aymar', 'Kartik', 'Karthik']].fillna(0)
-subset.plot(title = 'Number of births per year, USA, logarithmic', grid = True, figsize=(28,20), xticks=range(1880, 2020, 5), logy = True).get_figure().savefig('output2.png', bbox_inches = 'tight')
+subset = total_births[['Bianca']].fillna(0)
+subset.plot(title = 'Number of births per year, USA, logarithmic', grid = True, figsize=(28,20), xticks=range(1950, 2020, 5)).get_figure().savefig('output2.png', bbox_inches = 'tight')
 
 df = boys[boys.year == 2010]
 prop_cumsum = df.sort_index(by = 'prop', ascending = False).prop.cumsum()
