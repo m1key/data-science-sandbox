@@ -35,3 +35,29 @@ print fec['party'].value_counts()
 # Ignore negative contirbution amount.
 fec = fec[fec.contb_receipt_amt > 0]
 
+occ_mapping = {
+	'INFORMATION REQUESTED PER BEST EFFORTS': 'NOT PROVIDED',
+	'INFORMATION REQUESTED': 'NOT PROVIDED',
+	'INFORMATION REQUESTED (BEST EFFORTS)': 'NOT PROVIDED',
+	'C.E.O.': 'CEO'}
+
+# If no mapping provided, return x:
+f = lambda x: occ_mapping.get(x, x)
+fec.contbr_occupation = fec.contbr_occupation.map(f)
+
+emp_mapping = {
+	'INFORMATION REQUESTED PER BEST EFFORTS': 'NOT PROVIDED',
+	'INFORMATION REQUESTED': 'NOT PROVIDED',
+	'SELF': 'SELF-EMPLOYED',
+	'SELF EMPLOYED': 'SELF-EMPLOYED'}
+f = lambda x: occ_mapping.get(x, x)
+fec.contbr_employer = fec.contbr_employer.map(f)
+
+print fec.contbr_occupation.value_counts()[:10]
+
+by_occupation = fec.pivot_table('contb_receipt_amt', index = 'contbr_occupation', columns = 'party', aggfunc = 'sum')
+print by_occupation
+
+print by_occupation.ix
+by_occupation_veteran = by_occupation[by_occupation.index.map(lambda x: 'VETERAN' in x)]
+print by_occupation_veteran
