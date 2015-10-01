@@ -62,6 +62,11 @@ print by_occupation.ix
 by_occupation_veteran = by_occupation[by_occupation.index.map(lambda x: 'VETERAN' in x)]
 print by_occupation_veteran
 
+by_occupation_teacher = by_occupation[by_occupation.index.map(lambda x: 'TEACHER' in x)]
+print by_occupation_teacher
+print by_occupation_teacher.sum()
+print 'XXXXXXXXXXXXXXXXXXXXX'
+
 above2m = by_occupation[by_occupation.sum(1) > 2000000]
 print above2m
 
