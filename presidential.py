@@ -4,7 +4,7 @@
 
 import pandas as pd
 
-fec = pd.read_csv('P00000001-ALL.csv')
+fec = pd.read_csv('P00000001-ALL.cleansed.csv')
 #fec = pd.read_csv('../pydata-book/ch09/P00000001-ALL.csv')
 fec.info()
 print fec.ix[123456]
