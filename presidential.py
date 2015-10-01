@@ -12,3 +12,26 @@ print fec.ix[123456]
 unique_cands = fec.cand_nm.unique()
 print unique_cands
 
+parties = {'Rubio, Marco': 'Republican',
+	'Santorum, Richard J.': 'Republican',
+	'Perry, James R. (Rick)': 'Republican',
+	'Carson, Benjamin S.': 'Republican',
+	"Cruz, Rafael Edward 'Ted'": 'Republican',
+	'Paul, Rand': 'Republican',
+	'Clinton, Hillary Rodham': 'Democrat',
+	'Sanders, Bernard': 'Democrat',
+	'Fiorina, Carly': 'Republican',
+	'Huckabee, Mike': 'Republican',
+	'Pataki, George E.': 'Republican',
+	"O'Malley, Martin Joseph": 'Democrat',
+	'Graham, Lindsey O.': 'Republican',
+	'Bush, Jeb': 'Republican',
+	'Jindal, Bobby': 'Republican'}
+
+fec['party'] = fec.cand_nm.map(parties)
+
+print fec['party'].value_counts()
+
+# Ignore negative contirbution amount.
+fec = fec[fec.contb_receipt_amt > 0]
+
