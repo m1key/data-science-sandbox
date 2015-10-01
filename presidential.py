@@ -85,3 +85,9 @@ grouped = fec.groupby('cand_nm')
 print grouped.apply(get_top_amounts, 'contbr_occupation', n=7)
 print grouped.apply(get_top_amounts, 'contbr_employer', n=10)
 
+# Slow
+# grouped = fec.groupby('contbr_employer')
+# print grouped.apply(get_top_amounts, 'cand_nm', n=10).order(ascending=False)[:20]
+
+print fec.pivot_table('contb_receipt_amt', index = 'contbr_employer', columns = 'party', aggfunc = 'sum', fill_value = 0).sort(['Democrat'])
+
