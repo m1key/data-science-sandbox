@@ -70,6 +70,10 @@ print 'XXXXXXXXXXXXXXXXXXXXX'
 by_occupation_it_manager = by_occupation[by_occupation.index.map(lambda x: 'IT' in x and 'MANAGER' in x)]
 print by_occupation_it_manager
 
+print by_occupation[by_occupation.index.map(lambda x: 'POLICE' in x)]
+
+print by_occupation[by_occupation.index.map(lambda x: 'SOLDIER' in x)]
+
 above2m = by_occupation[by_occupation.sum(1) > 2000000]
 print above2m
 
