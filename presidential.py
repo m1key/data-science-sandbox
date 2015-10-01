@@ -65,3 +65,11 @@ print by_occupation_veteran
 above2m = by_occupation[by_occupation.sum(1) > 2000000]
 print above2m
 
+def get_top_amounts(group, key, n=5):
+	totals = group.groupby(key)['contb_receipt_amt'].sum()
+	return totals.order(ascending=False)[:n]
+
+grouped = fec.groupby('cand_nm')
+print grouped.apply(get_top_amounts, 'contbr_occupation', n=7)
+print grouped.apply(get_top_amounts, 'contbr_employer', n=10)
+
