@@ -97,3 +97,6 @@ print pivot_by_st.sort(['Democrat'])
 print pivot_by_st[pivot_by_st.index.map(lambda x: x == 'NH')]
 print pivot_by_st[pivot_by_st.index == 'NH'] # Shorter, still works.
 
+pivot_by_st['difference'] = abs(pivot_by_st['Republican'] - pivot_by_st['Democrat'])
+print pivot_by_st.sort(['difference'])
+
