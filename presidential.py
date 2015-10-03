@@ -91,5 +91,6 @@ print grouped.apply(get_top_amounts, 'contbr_employer', n=10)
 
 print fec.pivot_table('contb_receipt_amt', index = 'contbr_employer', columns = 'party', aggfunc = 'sum', fill_value = 0).sort(['Democrat'])
 
-print fec.pivot_table('contb_receipt_amt', index = 'contbr_st', columns = 'party', aggfunc = 'sum', fill_value = 0).sort(['Republican'])
-
+pivot_by_st = fec.pivot_table('contb_receipt_amt', index = 'contbr_st', columns = 'party', aggfunc = 'sum', fill_value = 0)
+print pivot_by_st.sort(['Republican'])
+print pivot_by_st.sort(['Democrat'])
