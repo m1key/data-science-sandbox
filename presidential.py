@@ -94,3 +94,6 @@ print fec.pivot_table('contb_receipt_amt', index = 'contbr_employer', columns = 
 pivot_by_st = fec.pivot_table('contb_receipt_amt', index = 'contbr_st', columns = 'party', aggfunc = 'sum', fill_value = 0)
 print pivot_by_st.sort(['Republican'])
 print pivot_by_st.sort(['Democrat'])
+print pivot_by_st[pivot_by_st.index.map(lambda x: x == 'NH')]
+print pivot_by_st[pivot_by_st.index == 'NH'] # Shorter, still works.
+
