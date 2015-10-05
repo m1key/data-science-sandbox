@@ -105,9 +105,3 @@ print pivot_by_st[pivot_by_st.index == 'NH'] # Shorter, still works.
 pivot_by_st['difference'] = abs(pivot_by_st['Republican'] - pivot_by_st['Democrat'])
 print pivot_by_st.sort(['difference'])
 
-states = pd.read_csv('state_table.csv', usecols = ['name', 'abbreviation'])
-
-merged = pd.merge(fec, states, left_on = 'contbr_st', right_on = 'abbreviation')
-
-print merged
-
