@@ -4,10 +4,15 @@
 
 import pandas as pd
 
-fec = pd.read_csv('P00000001-ALL.cleansed.csv', index_col = False)
+states = pd.read_csv('state_table.csv', usecols = ['name', 'abbreviation'])
+
+fec = pd.read_csv('P00000001-ALL.csv', index_col = False)
 #fec = pd.read_csv('P00000001-ALL.cleansed.csv')
 #fec = pd.read_csv('../pydata-book/ch09/P00000001-ALL.csv')
 fec.info()
+
+fec = pd.merge(fec, states, left_on = 'contbr_st', right_on = 'abbreviation')
+
 print fec.ix[123456]
 unique_cands = fec.cand_nm.unique()
 print unique_cands
@@ -99,4 +104,10 @@ print pivot_by_st[pivot_by_st.index == 'NH'] # Shorter, still works.
 
 pivot_by_st['difference'] = abs(pivot_by_st['Republican'] - pivot_by_st['Democrat'])
 print pivot_by_st.sort(['difference'])
+
+states = pd.read_csv('state_table.csv', usecols = ['name', 'abbreviation'])
+
+merged = pd.merge(fec, states, left_on = 'contbr_st', right_on = 'abbreviation')
+
+print merged
 
