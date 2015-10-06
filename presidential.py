@@ -116,3 +116,4 @@ print by_contbr_name[by_contbr_name.index.map(lambda x: 'RIVERA' in x)]
 print by_contbr_name[by_contbr_name.index.map(lambda x: 'RIVERA' in x)].sum()
 print by_contbr_name[by_contbr_name.index.map(lambda x: 'RIVERA' in x)].count()
 
+print fec.sort(['contb_receipt_amt'])[:2]
