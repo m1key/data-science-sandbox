@@ -105,3 +105,10 @@ print pivot_by_st[pivot_by_st.index == 'NH'] # Shorter, still works.
 pivot_by_st['difference'] = abs(pivot_by_st['Republican'] - pivot_by_st['Democrat'])
 print pivot_by_st.sort(['difference'])
 
+by_contbr_name = fec.pivot_table('contb_receipt_amt', index = 'contbr_nm', columns = 'party', aggfunc = 'sum')
+by_contbr_name_hassan = by_contbr_name[by_contbr_name.index.map(lambda x: 'HASSAN' in x)]
+print by_contbr_name_hassan
+
+by_contbr_name_patel = by_contbr_name[by_contbr_name.index.map(lambda x: 'PATEL' in x)]
+print by_contbr_name_patel.sum()
+
