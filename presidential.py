@@ -112,3 +112,7 @@ print by_contbr_name_hassan
 by_contbr_name_patel = by_contbr_name[by_contbr_name.index.map(lambda x: 'PATEL' in x)]
 print by_contbr_name_patel.sum()
 
+print by_contbr_name[by_contbr_name.index.map(lambda x: 'RIVERA' in x)]
+print by_contbr_name[by_contbr_name.index.map(lambda x: 'RIVERA' in x)].sum()
+print by_contbr_name[by_contbr_name.index.map(lambda x: 'RIVERA' in x)].count()
+
