@@ -1,10 +1,4 @@
-output.png
-output2.png
-output3.png
-output4.png
-output5.png
-output6.png
-output7.png
+output*.png
 P00000001-ALL.*
 *.swp
 
