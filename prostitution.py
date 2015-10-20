@@ -34,6 +34,5 @@ data['GDP per capita 2014'] = np.where(np.isnan(data['GDP per capita 2014']), da
 data['per100000'] = 10000 / (data['population'] / data['prostitutes'])
 
 # Subset of columns:
-print data[['country', 'prostitutes', 'population', 'per100000', 'GDP per capita 2014']].sort(['per100000'], ascending = False).reset_index(drop = True)
-
+print data[['country', 'population', 'per100000', 'GDP per capita 2014']].sort(['GDP per capita 2014'], ascending = False).reset_index(drop = True)
 
