@@ -8,7 +8,8 @@ gdp = pd.read_csv('ny.gdp.pcap.pp.cd_Indicator_en_csv_v2.csv', index_col = False
 
 mapping = {
 	'Korea, Rep.': 'South Korea',
-	'Taiwan, China': 'Taiwan'
+	'Taiwan, China': 'Taiwan',
+	'Korea, South (Republic of)': 'South Korea'
 }
 f= lambda x: mapping.get(x, x)
 #pop_recent.loc['Country Name'] = pop_recent.loc['Country Name'].map(f)
@@ -31,8 +32,30 @@ data.rename(columns = {'number': 'prostitutes', 'Value': 'population', '2014': '
 
 data['GDP per capita 2014'] = np.where(np.isnan(data['GDP per capita 2014']), data['GDP per capita 2013'], data['GDP per capita 2014'])
 
-data['per100000'] = 10000 / (data['population'] / data['prostitutes'])
+data['Prostitutes per 100k'] = 10000 / (data['population'] / data['prostitutes'])
+
+def p2f(x):
+        return 0 if x == "" else float(x.strip('%'))
+
+def strip(text):
+	try:
+		return text.strip()
+	except AttributeError:
+		return text
+
+rel = pd.read_csv('religions.csv', converters={'Other/UnSpecified': p2f, 'None': p2f, 'Country': strip})
+rel['Country'] = rel['Country'].map(f)
+rel.fillna(0)
+rel['Non-religious %'] = rel['Other/UnSpecified'] + rel['None']
+rel.ix[rel['Country'] == 'China', 'Non-religious %'] = 87
+
+data = pd.merge(data, rel, left_on = 'country', right_on = 'Country', how = 'left')
+
+pd.set_option('display.height', 1000)
+pd.set_option('display.max_rows', 500)
+pd.set_option('display.max_columns', 500)
+pd.set_option('display.width', 1000)
 
 # Subset of columns:
-print data[['country', 'population', 'per100000', 'GDP per capita 2014']].sort(['GDP per capita 2014'], ascending = False).reset_index(drop = True)
+print data[['country', 'Prostitutes per 100k', 'Non-religious %', 'GDP per capita 2014']].sort(['Non-religious %'], ascending = False).reset_index(drop = True)
 
