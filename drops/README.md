@@ -2,7 +2,18 @@
 
 ## Installation
 
-I installed Anaconda 3 5.3.1 for Windows 64-bit.
+### Linux
+
+I installed Anaconda 5.3.1 for Linux 64-bit by downloading it and running it with
+bash.
+
+Then, I navigated to the directory in the command line, and typed
+
+> jupyter notebook
+
+### Windows
+
+I installed Anaconda 5.3.1 for Windows 64-bit.
 
 Then, I launched Anaconda Navigator from the Start menu.
 
